@@ -1,0 +1,48 @@
+﻿<Page
+    x:Class="Bot.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Bot"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <local:BooleanToColorConverter x:Key="ColorConverter"/>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1*"></ColumnDefinition>
+            <ColumnDefinition Width="0.4*"></ColumnDefinition>
+            <ColumnDefinition Width="0.1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1" HorizontalAlignment="Stretch" Background="Gray">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.8*"></RowDefinition>
+                <RowDefinition Height="0.1*"></RowDefinition>
+                <RowDefinition Height="0.1*"></RowDefinition>
+                <RowDefinition Height="0.3*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <ListView Grid.Row="0" Name="messages_list" MaxHeight="400" FlowDirection="RightToLeft">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Background="{Binding sender, Mode=OneWay, Converter={StaticResource ColorConverter}}">
+                            <TextBlock Text="{Binding message}" 
+                                Margin="20,0,20,8" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsStackPanel ItemsUpdatingScrollMode="KeepLastItemInView" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+
+            <TextBox Grid.Row="1" PlaceholderText="מה ברצונך לחפש?" TextWrapping="Wrap" Width="400" Name="input_tb" KeyDown="input_tb_KeyDown" HorizontalAlignment="Center"/>
+            <Button Grid.Row="2" Name="ok_b" Content="Ok" HorizontalAlignment="Center" Click="Button_Click"/>
+            <Button Grid.Row="2" Name="show_all" Content="show all" Click="show_all_Click" Margin="561,0,0,0"/>
+        </Grid>
+    </Grid>
+</Page>
